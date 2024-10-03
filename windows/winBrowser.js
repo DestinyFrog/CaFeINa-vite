@@ -1,6 +1,5 @@
 import App from "../features/app.js"
-import Atom from "../models/Atom.js"
-// import ModelMolecule from "../models/molecule.js"
+import Atom from "../models/atom.js"
 import WinElement from "./winElement.js"
 import WinMolecula from "./winMolecula.js"
 
