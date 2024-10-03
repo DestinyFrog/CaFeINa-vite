@@ -3,10 +3,13 @@ import WinLinusPauling from "../windows/winLinusPauling.js"
 import WinPeriodicTable from "../windows/winPeriodicTable.js"
 import App from "./app.js"
 
+import iconTabelaPeriodica from "../public/icons/iconPeriodicTable.svg"
+import iconLinusPauling from "../public/icons/iconLinusPauling.svg"
+
 const icons = [
 	{
 		name: "tabela-periodica",
-		icon: "/public/icons/iconPeriodicTable.svg",
+		icon: iconTabelaPeriodica,
 		title: "Tabela Periódica",
 		action: () => {
 			const w = new WinPeriodicTable()
@@ -15,7 +18,7 @@ const icons = [
 	},
 	{
 		name: "linus-pauling",
-		icon: "/public/icons/iconLinusPauling.svg",
+		icon: iconLinusPauling,
 		title: "Diagrama de Linus Pauling",
 		action: () => {
 			const w = new WinLinusPauling()
@@ -33,7 +36,7 @@ const icons = [
 	},
 	{
 		name: "clear",
-		icon: "assets/icon_clear.svg",
+		icon: "",
 		title: "Limpar",
 		action: () =>
 			App.Clear()
