@@ -1,6 +1,6 @@
 import { Capitalize } from "../configuration.js"
 import App from "../features/app.js"
-import Atom from "../models/Atom.js"
+import Atom from "../models/atom.js"
 import WinAtom from "./winAtom.js"
 import WinLinusPauling from "./winLinusPauling.js"
 
