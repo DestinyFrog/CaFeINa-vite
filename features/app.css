@@ -1,0 +1,85 @@
+
+.app {
+	position: fixed;
+	width: min-content;
+	height: min-content;
+	border: 2px solid black;
+	background-color: white;
+}
+
+.app-header {
+	width: 100%;
+	height: 100%;
+	display: flex;
+	flex-direction: row;
+	align-items: center;
+	justify-content: space-between;
+	padding: 4px;
+	color: aliceblue;
+	cursor: pointer;
+	user-select: none;
+	font-size: 12px;
+	border-bottom: 2px solid black;
+}
+
+.app-header p {
+	text-align: center;
+	width: 100%;
+	cursor: move;
+}
+
+.app-container {
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+}
+
+.app-closer {
+	width: 16px;
+	aspect-ratio: 1/1;
+	border-radius: 50%;
+	padding: 1px;
+	border: 2px solid black;
+	background-color: rgb(255, 87, 87);
+}
+
+.app-footer {
+	height: auto;
+	display: flex;
+	flex-direction: row;
+	border-top: 2px solid black;
+}
+
+.in-screen {
+	border: 2px solid black;
+	border-radius: 5px;
+	margin: 6px;
+	width: min-content;
+}
+
+/* Icon */
+.app-icon {
+	width: 100%;
+	text-align: center;
+	background-color: transparent;
+	border: 0;
+	box-shadow: none;
+	font-size: 15px;
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	justify-content: space-around;
+}
+
+.app-icon:last-of-type {
+	grid-row-start: 60;
+}
+
+.app-icon:hover {
+	background-color: rgba(255,255,255,0.4);
+	border-radius: 5px;
+}
+
+.app-icon img {
+	max-width: 50px;
+}

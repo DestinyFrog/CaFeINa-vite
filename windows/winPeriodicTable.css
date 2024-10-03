@@ -1,0 +1,16 @@
+
+
+#tabela-periodica {
+	display: grid;
+	padding: 10px;
+}
+
+.tabela-periodica-cell {
+	width: 100%;
+	border: 1px solid black;
+	aspect-ratio: 1/1;
+	display: flex;
+	justify-content: center;
+	flex-direction: column;
+	align-items: center;
+}

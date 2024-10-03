@@ -1,0 +1,36 @@
+
+.browser-bar input {
+    width: 350px;
+    border-radius: 0;
+    border: 0;
+    border-bottom: 2px solid black;
+    padding: 4px;
+}
+
+.browser-ul-recomendation {
+    list-style: none;
+    width: 100%;
+    overflow-y: scroll;
+    max-height: 250px;
+}
+
+.browser-ul-recomendation li {
+    padding: 2px 4px;
+    width: 100%;
+    display:flex;
+    justify-content: space-between;
+}
+
+.browser-ul-recomendation hr {
+    line-height: 4px;
+}
+
+.browser-ul-recomendation li:hover {
+    background-color: black;
+    color: white;
+}
+
+.browser-ul-recomendation li:hover * {
+    background-color: black;
+    color: white;
+}
