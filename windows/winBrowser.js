@@ -94,7 +94,7 @@ data2.forEach(
             )
 
 this.recomendation.innerHTML = ''
-Els.forEach(this.recomendation.appendChild)
+Els.forEach(d => this.recomendation.appendChild(d))
     }
 }
 
