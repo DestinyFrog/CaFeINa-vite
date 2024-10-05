@@ -30,8 +30,9 @@ class winBrowser extends App {
 
     }
 
-    SearchFor(term) {
-        this.recomendation.innerHTML = ''
+    async SearchFor(term) {
+const Els = []
+this.recomendation.innerHTML = ''
 
         if (term == '')
             return
@@ -52,16 +53,20 @@ class winBrowser extends App {
                 const w = new WinElement(m)
                 w.Render()
             })
-            this.recomendation.appendChild(li)
+
+Els.push(li)
+        
         })
 
         const hr = document.createElement('hr')
-        this.recomendation.appendChild(hr)
+Els.push(hr)
 
-        Molecula
+        const data2 = await Molecula
 		.SearchManyByTerm(term)
-		.then(data => {
-            data.forEach(
+
+this.recomendation.innerHTML = ''
+		
+data2.forEach(
                 m => {
                     const li = document.createElement('li')
                     let formula = m.formula.split(/(_\d)/)
@@ -84,10 +89,12 @@ class winBrowser extends App {
                         const w = new WinMolecula(m)
                         w.Render()
                     })
-                    this.recomendation.appendChild(li)
+                    Els.push(li)
                 }
             )
-		})
+
+this.recomendation.innerHTML = ''
+Els.forEach(this.recomendation.appendChild)
     }
 }
 
