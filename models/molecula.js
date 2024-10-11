@@ -8,9 +8,13 @@ class Molecula {
 		estrutura
 	}) {
 		this.id = id,
-		this.nome = JSON.parse(nome)
+		this.nomes = JSON.parse(nome)
 		this.formula = formula
 		this.estrutura = JSON.parse(estrutura)
+	}
+
+	get nome() {
+		return this.nomes[0]
 	}
 
 	static async SearchOneByTerm(term) {
@@ -26,18 +30,16 @@ class Molecula {
 	}
 
 	static async SearchManyByTerm(term) {
-		const data = await client.execute({sql:`SELECT m.id, m.nome, m.formula, m.estrutura
+		const data = await client.execute({sql:`SELECT m.id, m.nome, m.formula, m.estrutura, m.caracteristicas
 			FROM molecula AS m, json_each(m.nome)
-			WHERE json_each.value LIKE ?;`,
-			args: [`%${term}%`]
+			WHERE json_each.value LIKE ?
+			OR m.caracteristicas LIKE ?
+			;`,
+			args: [`%${term}%`, `%${term}%`]
 		})
-		const ids = []
-		return data.rows.map(d => {
-			if (ids.includes(d.id))
-				return null
-			ids.push(d.id)
-			return new Molecula(d)
-		} ).filter(d => d!=null)
+		
+		const list = Array.from( new Set(data.rows) )
+		return list.map(l => new Molecula(l))
 	}
 }
 
