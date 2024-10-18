@@ -1,7 +1,6 @@
 import './style.css'
 import icons from './features/icons.js'
 import Atom from './models/atom.js'
-import Molecula from './models/molecula.js'
 
 ( async () => {
 	await Atom.loadAll()
