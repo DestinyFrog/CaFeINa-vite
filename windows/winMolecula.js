@@ -165,23 +165,11 @@ class NormalStructure extends Structure {
 
 		if (dad) {
 			if ( dad.ligacoes[order].tipo != 'iônica') {
-				const ligation_angle =  dad.ligacoes[order].eletrons!=1 ? this.ligation_distance : 0
+				// const ligation_angle =  dad.ligacoes[order].eletrons!=1 ? this.ligation_distance : 0
 
-				const from = {
-					x: this.ligation_radius * Math.cos(angle_rad+Math.PI - ligation_angle) + x,
-					y: this.ligation_radius * Math.sin(angle_rad+Math.PI - ligation_angle) + y
-				}
-
-				const to = {
-					x: this.ligation_radius * Math.cos(angle_rad + ligation_angle) + dad.pos.x,
-					y: this.ligation_radius * Math.sin(angle_rad + ligation_angle) + dad.pos.y
-				}
-
-				this.ligations.push({from,to})
-				/*
-				for (let i = 0; i < eletrons; i++) {
+				for (let i = 0; i < dad.ligacoes[order].eletrons; i++) {
 					let j = 0
-					switch(eletrons) {
+					switch(dad.ligacoes[order].eletrons) {
 						case 3:
 							j = i-1
 							break
@@ -203,7 +191,7 @@ class NormalStructure extends Structure {
 
 					this.ligations.push({from,to})
 				}
-				*/
+				
 			}
 		}
 
