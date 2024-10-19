@@ -61,6 +61,7 @@ class WinElement extends App {
 
 	OpenVisualization() {
 		const w = new WinAtom(this.atom)
+		w.position = this.position
 		w.Render()
 	}
 
