@@ -59,7 +59,7 @@ class WinPeriodicTable extends App {
 				cell.textContent = atom.simbolo
 				cell.style.width = '30px'
 				cell.style.backgroundColor = atom.categoryToColor
-				cell.style.color = atom.FaseToColor
+				cell.style.color = atom.faseToColor
 				break
 
 			case 'raio_atomico':
