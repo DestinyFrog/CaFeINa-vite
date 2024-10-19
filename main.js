@@ -5,8 +5,6 @@ import Atom from './models/atom.js'
 ( async () => {
 	await Atom.loadAll()
 
-	// Molecula.GetOneByName('água')
-
 	const grid_app = document.getElementById('app')
 
 	icons.forEach(({action, title, icon}) => {
