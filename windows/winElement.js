@@ -1,8 +1,10 @@
 import { Capitalize } from "../configuration.js"
 import App from "../features/app.js"
 import Atom from "../models/atom.js"
+import Molecula from "../models/molecula.js"
 import WinAtom from "./winAtom.js"
 import WinLinusPauling from "./winLinusPauling.js"
+import WinMolecula from "./winMolecula.js"
 
 class WinElement extends App {
 	static colls = []
@@ -83,16 +85,17 @@ class WinElement extends App {
 		if (l.length > 0) {
 			const members = l.map(d => d.atom.simbolo)
 			members.push(this.atom.simbolo)
-			const data = ModelMolecule.SearchOneByMembers(members)
-
-			if (data != undefined) {
-				const w = new WinMolecula(data)
-				w.position = this.position
-				w.Render()
-
-				l.forEach(d => d.Close())
-				this.Close()
-			}
+			Molecula.SearchByMembers(members)
+			.then(data => {
+				if (data != undefined) {
+					const w = new WinMolecula(data)
+					w.position = this.position
+					w.Render()
+	
+					l.forEach(d => d.Close())
+					this.Close()
+				}
+			})
 		}
 	}
 }

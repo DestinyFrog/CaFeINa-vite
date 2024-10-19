@@ -13,7 +13,8 @@ class WinMolecula extends App {
 	 * @param {Molecula} data
 	 */
 	constructor(data, s='normal') {
-		super( Capitalize(data.nome[0]) )
+		console.log(data.estrutura)
+		super( Capitalize(data.nome) )
 		this.data = data
 		this._type = s
 	}
@@ -123,6 +124,12 @@ class Structure {
 	DrawAtom(atom) {}
 }
 
+const geometria = {
+	"tetraédrica": 4,
+	"trigonal plana": 3,
+	"linear": 2
+}
+
 class NormalStructure extends Structure {
 	/**
 	 * @param {HTMLCanvasElement} canvas
@@ -146,29 +153,19 @@ class NormalStructure extends Structure {
 		const atom = atomList[index]
 		const dad = this.atoms[index_dad] || null
 
-		const angle = (dad?.angle||0) + 360/(dad?.ligacoes?.length||1) * order
+		let max_ligations = geometria[dad?.geometria] || 1
+		let angle = (dad?.angle||0) + 360/max_ligations * order
+		
 		const angle_rad = DegreesToRadians(angle)
 		const x = (dad?.pos.x||0) + (index_dad==undefined?0:Math.cos(angle_rad)) * this.radius
 		const y = (dad?.pos.y||0) + Math.sin(angle_rad) * this.radius
 
-		const me = { ... atom, pos: {x,y}, angle }
+		const me = { ... atom, pos: {x,y}, angle: atom.angle||0 }
 		const my_index = this.atoms.push(me) -1
 
 		if (dad) {
-			const tipo = dad.ligacoes[order].tipo || 'covalente'
-
-			if ( tipo != 'iônica') {
-			const eletrons = dad.ligacoes[order].eletrons
-			for (let i = 0; i < eletrons; i++) {
-				let j = 0
-				switch(eletrons) {
-					case 3:
-						j = i-1
-						break
-					case 2:
-						j = i==0?-1:1
-				}
-				const ligation_angle = this.ligation_distance*j
+			if ( dad.ligacoes[order].tipo != 'iônica') {
+				const ligation_angle =  dad.ligacoes[order].eletrons!=1 ? this.ligation_distance : 0
 
 				const from = {
 					x: this.ligation_radius * Math.cos(angle_rad+Math.PI - ligation_angle) + x,
@@ -181,11 +178,36 @@ class NormalStructure extends Structure {
 				}
 
 				this.ligations.push({from,to})
+				/*
+				for (let i = 0; i < eletrons; i++) {
+					let j = 0
+					switch(eletrons) {
+						case 3:
+							j = i-1
+							break
+						case 2:
+							j = i==0?-1:1
+					}
+					
+					const ligation_angle = this.ligation_distance*j
+
+					const from = {
+						x: this.ligation_radius * Math.cos(angle_rad+Math.PI - ligation_angle) + x,
+						y: this.ligation_radius * Math.sin(angle_rad+Math.PI - ligation_angle) + y
+					}
+
+					const to = {
+						x: this.ligation_radius * Math.cos(angle_rad + ligation_angle) + dad.pos.x,
+						y: this.ligation_radius * Math.sin(angle_rad + ligation_angle) + dad.pos.y
+					}
+
+					this.ligations.push({from,to})
+				}
+				*/
 			}
 		}
-	}
 
-		atom.ligacoes?.forEach(({para}, idx) =>
+		atom.ligacoes.forEach(({para}, idx) =>
 			this.ThrowAtoms(atomList, para, idx, my_index) )
 	}
 

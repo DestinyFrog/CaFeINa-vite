@@ -10,6 +10,7 @@ const eletronegatividade_fluor = 3.98
 class WinPeriodicTable extends App {
 	constructor(type_cell = "simplificada") {
 		super("Tabela Periódica")
+	
 		this.type_cell = type_cell
 		this.table = document.createElement('div')
 		this.table.id = 'tabela-periodica'

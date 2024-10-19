@@ -45,10 +45,8 @@ class winBrowser extends App {
 		this.atom_area.innerHTML = ''
 		this.SearchAtoms()
 
-		this.molecule_area.innerHTML = ''
-
 		const data2 = await Molecula.SearchManyByTerm(term)
-
+		this.molecule_area.innerHTML = ''
 		data2.forEach(
 			m => {
 				const li = document.createElement('li')
@@ -78,7 +76,7 @@ class winBrowser extends App {
 		)
 	}
 
-	SearchAtoms() {
+	SearchAtoms(term) {
 		Atom.SearchManyByTerm(term)
 		.sort(({ numero_atomico: n1 }, { numero_atomico: n2 }) => n1 > n2 ? 1 : -1)
 		.forEach(m => {
