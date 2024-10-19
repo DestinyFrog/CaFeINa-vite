@@ -35,6 +35,16 @@ class Molecula {
 		})
 	}
 
+	static removeCopy(arr) {
+		return arr.reduce((prev, cur) => {
+			if ( prev.find(({id}) => id == cur.id) ) {
+				return prev
+			} else {
+				return [ ... prev, cur ]
+			}
+		}, [])
+	}
+
 	static async SearchOneByTerm(term) {
 		const data = await client.execute({sql:`SELECT m.id, m.nome, m.formula, m.estrutura
 			FROM molecula AS m, json_each(m.nome)
@@ -56,7 +66,7 @@ class Molecula {
 			args: [`%${term}%`, `%${term}%`]
 		})
 		
-		const list = Array.from( new Set(data.rows) )
+		const list = this.removeCopy(data.rows)
 		return list.map(l => new Molecula(l))
 	}
 
