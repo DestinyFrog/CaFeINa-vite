@@ -126,8 +126,11 @@ class Structure {
 
 const geometria = {
 	"tetraédrica": 4,
+	"piramidal": 3,
 	"trigonal plana": 3,
-	"linear": 2
+	"linear": 2,
+	"angular V": 2,
+	"angular": 2
 }
 
 class NormalStructure extends Structure {
