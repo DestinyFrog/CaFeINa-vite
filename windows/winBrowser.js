@@ -43,7 +43,7 @@ class winBrowser extends App {
 			return
 
 		this.atom_area.innerHTML = ''
-		this.SearchAtoms()
+		this.SearchAtoms(term)
 
 		const data2 = await Molecula.SearchManyByTerm(term)
 		this.molecule_area.innerHTML = ''
