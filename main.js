@@ -25,8 +25,5 @@ import WinPeriodicTable from './windows/winPeriodicTable.js'
 
 	document.getElementById('app').appendChild(grid_app)
 
-	const w = new WinPeriodicTable()
-	w.Render()
-
 } ).call(this)
 

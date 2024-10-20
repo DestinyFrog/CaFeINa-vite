@@ -1,4 +1,17 @@
 
+footer {
+	position: fixed;
+	bottom: 0;
+	left: 0;
+	width: 100vw;
+	height: min-content;
+	background-color: yellow;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	padding: 10px;
+}
+
 .app {
 	position: fixed;
 	width: min-content;
@@ -40,7 +53,7 @@
 	border-radius: 50%;
 	padding: 1px;
 	border: 2px solid black;
-	background-color: rgb(255, 87, 87);
+	/* background-color: rgb(255, 87, 87); */
 	margin-left: 6px;
 }
 
@@ -60,10 +73,11 @@
 
 /* Icon */
 .app-icon {
-	/* width: 100%; */
-	aspect-ratio: 1/1;
+	width: 100%;
+	height: min-content;
+	/* aspect-ratio: 1/1; */
 	text-align: center;
-	background-color: rgba(250, 235, 215, 0.5);
+	background-color: rgba(255, 172, 63, 0.5);
 	border: 0;
 	box-shadow: none;
 	font-size: 14px;
@@ -78,7 +92,7 @@
 }
 
 .app-icon p {
-	margin-top: 6px;
+	/* margin-top: 6px; */
 	color: white;
 }
 
@@ -88,5 +102,10 @@
 }
 
 .app-icon img {
-	max-height: 50%;
+	/* max-height: 20px; */
+	width: 100%;
+	min-width: 30px;
+	height: min-content;
+	max-height: 40px;
+	/* padding: 2px; */
 }
