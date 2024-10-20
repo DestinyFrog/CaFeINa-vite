@@ -19,7 +19,7 @@ class Molecula {
 
 	get estrutura() {
 		return this._estrutura.map(({simbolo,geometria,carga,angulo,ligacoes}) => {
-			return {
+		return {
 				simbolo,
 				geometria: geometria || 'linear',
 				carga: carga || 0,

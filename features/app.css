@@ -60,20 +60,26 @@
 
 /* Icon */
 .app-icon {
-	width: 100%;
+	/* width: 100%; */
+	aspect-ratio: 1/1;
 	text-align: center;
-	background-color: transparent;
+	background-color: rgba(250, 235, 215, 0.5);
 	border: 0;
 	box-shadow: none;
-	font-size: 15px;
+	font-size: 14px;
+	border-radius: 3px;
+	padding: 10px;
+	/*
 	display: flex;
 	flex-direction: column;
 	align-items: center;
 	justify-content: space-around;
+	*/
 }
 
-.app-icon:last-of-type {
-	grid-row-start: 60;
+.app-icon p {
+	margin-top: 6px;
+	color: white;
 }
 
 .app-icon:hover {
@@ -82,5 +88,5 @@
 }
 
 .app-icon img {
-	max-width: 50px;
+	max-height: 50%;
 }

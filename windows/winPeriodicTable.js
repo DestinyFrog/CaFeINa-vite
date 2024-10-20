@@ -1,3 +1,4 @@
+import { Capitalize } from "../configuration.js"
 import App from "../features/app.js"
 import Atom from "../models/atom.js"
 import WinElement from "./winElement"
@@ -15,6 +16,8 @@ class WinPeriodicTable extends App {
 		this.table = document.createElement('div')
 		this.table.id = 'tabela-periodica'
 		this.AddToContainer(this.table)
+
+		this.categorias = []
 	}
 
 	/**
@@ -23,6 +26,23 @@ class WinPeriodicTable extends App {
 	set type(v) {
 		this.type_cell = v
 		this.drawTable()
+	}
+
+	markClassification() {
+		if (this.categorias.length == 0) {
+			for ( let c of this.table.children ) {
+				c.style.opacity = 1
+			}
+			return
+		}
+
+		for ( let c of this.table.children ) {
+			if ( this.categorias.find(n => n == c.getAttribute('categoria') ) != undefined ) {
+				c.style.opacity = 1
+			} else {
+				c.style.opacity = .1
+			}
+		}
 	}
 
 	/**
@@ -35,6 +55,27 @@ class WinPeriodicTable extends App {
 
 		cell.style.gridRowStart = `${atom.pos.y}`
 		cell.style.gridColumnStart = `${atom.pos.x}`
+
+		const a = document.createAttribute("categoria")
+		a.value = atom.categoria
+		cell.setAttributeNode(a)
+
+		/*
+		cell.addEventListener('mouseover', () => {
+			if (this.open == false)
+				return
+			this.categorias.push(atom.categoria)
+			this.markClassification()
+		})
+
+		cell.addEventListener('mouseleave', () => {
+			if (this.open == false)
+				return
+			this.categorias = this.categorias.filter(n => n != atom.categoria)
+			this.markClassification()
+		})
+			*/
+		
 
 		cell.addEventListener('click', () => {
 			const w = new WinElement(atom)
@@ -101,6 +142,48 @@ class WinPeriodicTable extends App {
 	Render() {
 		this.drawTable()
 
+		this.open = false
+
+		const list = document.createElement('ul');
+		list.className = 'classification-list'
+		this.AddToContainer(list)
+		list.style.display = this.open ? 'flex' : 'none'
+
+		const button = document.createElement('button')
+		button.innerText = 'Classificação'
+		button.style.margin = '10px'
+		button.addEventListener('click', () => {
+			this.open = !this.open
+			list.style.display = this.open ? 'flex' : 'none'
+		})
+		this.AddToFooter(button)
+
+		const l = ['hidrogênio', 'metal alcalino', 'metal alcalino terroso', 'metal de transição', 'lantanídeo', 'actinídeo', 'outros metais', 'metaloide', 'ametal', 'gás nobre', 'desconhecido']
+		l.forEach(d => {
+			const li = document.createElement('li')
+
+			const mark = document.createElement('input')
+			mark.type = 'checkbox'
+			mark.name = 'classification'
+			li.appendChild(mark)
+
+			const p = document.createElement('p')
+			p.textContent = Capitalize(d)
+			li.appendChild(p)
+
+			mark.addEventListener('click', () => {
+				if (mark.checked)
+					this.categorias.push(d)
+				else
+					this.categorias = this.categorias.filter(n => n != d)
+				
+				this.markClassification()
+			})
+
+			list.appendChild(li)
+		})
+
+
 		/*
 		const but_completa = document.createElement('button')
 		but_completa.textContent = "Completa"
@@ -110,6 +193,7 @@ class WinPeriodicTable extends App {
 		this.AddToFooter(but_completa)
 		*/
 
+		/*
 		const but_simplificada = document.createElement('button')
 		but_simplificada.textContent = "Simplificada"
 		but_simplificada.addEventListener('click', () => {
@@ -130,6 +214,7 @@ class WinPeriodicTable extends App {
 			this.type = 'eletronegatividade'
 		})
 		this.AddToFooter(but_eletronegativity)
+		*/
 	}
 }
 

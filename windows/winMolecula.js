@@ -50,12 +50,12 @@ class WinMolecula extends App {
 		this.canvas.className = 'in-screen'
 		this.AddToContainer(this.canvas)
 
+		/*
 		const button_normal = document.createElement('button')
 		button_normal.textContent = 'Normal'
 		button_normal.addEventListener('click', () => this.type = 'normal')
 		this.AddToFooter(button_normal)
 
-		/*
 		const button_lewis = document.createElement('button')
 		button_lewis.textContent = 'Lewis'
 		button_lewis.addEventListener('click', () => this.type = 'lewis')

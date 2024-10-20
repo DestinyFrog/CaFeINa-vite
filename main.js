@@ -1,13 +1,14 @@
 import './style.css'
 import icons from './features/icons.js'
 import Atom from './models/atom.js'
+import WinPeriodicTable from './windows/winPeriodicTable.js'
 
 ( async () => {
 	await Atom.loadAll()
 
-	const grid_app = document.getElementById('app')
+	const grid_app = document.createElement('footer')
 
-	icons.forEach(({action, title, icon}) => {
+	icons.forEach(({action, title, icon, color}) => {
 		const but = document.createElement('button')
 		but.className = 'app-icon'
 		but.addEventListener('click', action)
@@ -19,8 +20,13 @@ import Atom from './models/atom.js'
 
 		const t = document.createElement('p')
 		t.textContent = title
-		but.appendChild(t)
+		// but.appendChild(t)
 	})
+
+	document.getElementById('app').appendChild(grid_app)
+
+	const w = new WinPeriodicTable()
+	w.Render()
 
 } ).call(this)
 

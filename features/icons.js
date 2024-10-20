@@ -5,12 +5,15 @@ import App from "./app.js"
 
 import iconTabelaPeriodica from "/icons/iconPeriodicTable.svg"
 import iconLinusPauling from "/icons/iconLinusPauling.svg"
+import iconSearch from "/icons/iconSearch.svg"
+import iconClear from "/icons/iconClear.svg"
 
 const icons = [
 	{
 		name: "tabela-periodica",
 		icon: iconTabelaPeriodica,
 		title: "Tabela Periódica",
+		color: "#4169e1",
 		action: () => {
 			const w = new WinPeriodicTable()
 			w.Render()
@@ -27,7 +30,7 @@ const icons = [
 	},
     {
 		name: "browser",
-		icon: "",
+		icon: iconSearch,
 		title: "Navegador",
 		action: () => {
 			const w = new winBrowser()
@@ -36,7 +39,7 @@ const icons = [
 	},
 	{
 		name: "clear",
-		icon: "",
+		icon: iconClear,
 		title: "Limpar",
 		action: () =>
 			App.Clear()
