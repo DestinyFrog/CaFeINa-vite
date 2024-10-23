@@ -20,3 +20,13 @@ export function Capitalize(text) {
 export function DegreesToRadians(degrees) {
 	return degrees / 180 * Math.PI
 }
+
+export function GenerateRandomString(length) {
+	let result = ''
+	const characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789'
+	const charactersLength = characters.length
+	for (let i = 0; i < length; i++) {
+		result += characters.charAt(Math.floor(Math.random() * charactersLength))
+	}
+	return result
+}

@@ -1,4 +1,6 @@
+import { GenerateRandomString } from '../configuration'
 import './app.css'
+
 
 class App {
 	static open_apps = []
@@ -60,11 +62,19 @@ class App {
 		})
 	}
 
+	static allByType(typeForSearch) {
+		return this.open_apps.filter( ({_type}) => _type == typeForSearch )
+	}
+
 	/**
 	 * @param {string} name
 	 */
-	constructor(name) {
+	constructor(name, type, unique=false) {
 		const app = document.querySelector('#app')
+
+		this._type = type
+		this.id = GenerateRandomString(8)
+		this._unique = unique
 
 		this.div_window = document.createElement('div')
 		this.div_window.className = "app"
