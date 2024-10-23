@@ -5,6 +5,7 @@ import Molecula from "../models/molecula.js"
 import WinAtom from "./winAtom.js"
 import WinLinusPauling from "./winLinusPauling.js"
 import WinMolecula from "./winMolecula.js"
+import "./winElement.css"
 
 class WinElement extends App {
 	static colls = []

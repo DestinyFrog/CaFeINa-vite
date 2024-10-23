@@ -1,0 +1,64 @@
+
+#tabela-periodica {
+	grid-auto-rows: 1fr;
+}
+
+.element-container {
+	display: flex;
+	flex-direction: row;
+
+	min-width: 130px;
+	aspect-ratio: 1/1;
+	text-align: right;
+
+	padding: 6px;
+	color: aliceblue;
+	font-weight: bolder;
+}
+
+.element-container * {
+	background-color: transparent;
+	color: white;
+}
+
+.item {
+	width: 100%;
+	height: 100%;
+
+	display: flex;
+	flex-direction: column;
+}
+
+.item-name {
+	text-align: center;
+	font-size: large;
+}
+
+.item-number {
+	text-align: start;
+	font-size: large;
+}
+
+.item-symbol {
+	text-align: center;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	font-size: xxx-large;
+	height: 100%;
+}
+
+.item-mass {
+	text-align: center;
+	font-size: small;
+}
+
+.item-distribution {
+	max-width: 10%;
+	text-wrap: wrap;
+}
+
+.item-shells {
+	width: min-content;
+	font-size: small;
+}
