@@ -18,11 +18,12 @@ class Molecula {
 	}
 
 	get estrutura() {
-		return this._estrutura.map(({simbolo,geometria,carga,angulo,ligacoes}) => {
+		return this._estrutura.map(({simbolo,geometria,carga,angulo,ligacoes, inverso}) => {
 		return {
 				simbolo,
 				geometria: geometria || 'linear',
 				carga: carga || 0,
+				inverso: inverso || false,
 				angle: angulo || undefined,
 				ligacoes: ligacoes?.map(({para, tipo, eletrons}) => {
 					return {
