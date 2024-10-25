@@ -50,12 +50,10 @@ class winBrowser extends App {
 		data2.forEach(
 			m => {
 				const li = document.createElement('li')
-				let formula = m.formula.split(/(_\d)/)
-				formula = formula.map(as => {
-					if (as.startsWith('_'))
-						return `<sub>${as.slice(1)}</sub>`
-					return as
-				}).join("")
+				let formula = m.formula
+					.replaceAll("<", "_")
+					.replaceAll(">", "</sub>")
+					.replaceAll("_", "<sub>")
 
 				const nome_p = document.createElement('p')
 				nome_p.textContent = m.nome
