@@ -44,7 +44,7 @@ canvas.height = HEIGHT
 const geo = {
 	"trigonal plana": [ 0, 120, 240 ],
 	"tetraédrica": [ 0, 90, 180, 270 ],
-	"angular V": [20, 160],
+	"angular V": [0, 180],
 	"linear": [ 0, 180 ]
 }
 

@@ -50,12 +50,12 @@ class WinMolecula extends App {
 		this.canvas.className = 'in-screen'
 		this.AddToContainer(this.canvas)
 
-		/*
 		const button_normal = document.createElement('button')
 		button_normal.textContent = 'Normal'
 		button_normal.addEventListener('click', () => this.type = 'normal')
 		this.AddToFooter(button_normal)
 
+		/*
 		const button_lewis = document.createElement('button')
 		button_lewis.textContent = 'Lewis'
 		button_lewis.addEventListener('click', () => this.type = 'lewis')
@@ -90,7 +90,7 @@ class Structure {
 		this.ctx.fillStyle = '#fff'
 		this.ctx.fillRect(0, 0, this.WIDTH, this.HEIGHT)
 		this.atoms.forEach(atom => this.DrawAtom(atom) )
-		this.ligations.forEach(ligation=> this.DrawLigation(ligation) )
+		this.ligations.forEach(ligation=> this.drawLig(ligation) )
 	}
 
 	/** Set Screen Size */
@@ -152,7 +152,8 @@ class NormalStructure extends Structure {
 	 * @param {number} order
 	 * @param {number|undefined} index_dad
 	 */
-	ThrowAtoms(atomList, index=0, order=0, index_dad=undefined) {
+	ThrowAtoms(all, idx=0, idx_pai=null, order=0, camada=0) {
+		/*
 		const atom = atomList[index]
 		const dad = this.atoms[index_dad] || null
 
@@ -200,6 +201,44 @@ class NormalStructure extends Structure {
 
 		atom.ligacoes.forEach(({para}, idx) =>
 			this.ThrowAtoms(atomList, para, idx, my_index) )
+		*/
+		const distancia = 40
+		const geo = {
+			"trigonal plana": [ 0, 120, 240 ],
+			"tetraédrica": [ 0, 90, 180, 270 ],
+			"angular V": [0, 180],
+			"linear": [ 0, 180 ]
+		}
+
+		const eu = all[idx]
+		const pai = all[idx_pai] || null
+
+		eu.lido = true
+
+		if (pai)
+			eu.angle = (pai?.angle||0) + geo[pai.geometria || "linear"][order]
+		else
+			eu.angle = 0
+
+		if (eu?.inverso == true)
+			eu.angle = eu.angle + 180
+
+		eu.pos = {
+			x: (pai?.pos.x||0) + Math.cos(eu.angle / 180 * Math.PI) * distancia,
+			y: (pai?.pos.y||0) + Math.sin(eu.angle / 180 * Math.PI) * distancia
+		}
+
+		this.atoms.push(eu)
+
+		if (eu.ligacoes)
+			eu.ligacoes.forEach(({para, eletrons=1}, eidx) => {				
+				if (all[para].lido != true) {
+					const filho = this.ThrowAtoms(all, para, idx, eidx, camada+1)
+					this.ligations.push({a:filho, b:eu, eletrons})
+				}
+			})
+
+		return eu
 	}
 
 	DrawLigation(ligation) {
@@ -213,6 +252,26 @@ class NormalStructure extends Structure {
 		this.ctx.moveTo(from.x - this.small_x + this.border, from.y - this.small_y + this.border)
 		this.ctx.lineTo(to.x - this.small_x + this.border, to.y - this.small_y + this.border)
 		this.ctx.stroke()
+	}
+
+	drawLig({a, b, eletrons=1}) {	
+		const ligacao_distancia = 10
+		const espaco_ligacao = 20
+
+		this.ctx.strokeStyle = "black"
+		this.ctx.lineWidth = 1
+
+		for (let i = 0; i < eletrons; i++) {
+			const ax = a.pos.x + Math.cos( ((a.angle + (i*espaco_ligacao)) + 180) / 180 * Math.PI) * ligacao_distancia
+			const ay = a.pos.y + Math.sin( ((a.angle + (i*espaco_ligacao)) + 180) / 180 * Math.PI) * ligacao_distancia
+			const bx = b.pos.x + Math.cos( (a.angle - (i*espaco_ligacao)) / 180 * Math.PI) * ligacao_distancia
+			const by = b.pos.y + Math.sin( (a.angle - (i*espaco_ligacao)) / 180 * Math.PI) * ligacao_distancia
+
+			this.ctx.beginPath()
+			this.ctx.moveTo(ax - this.small_x + this.border, ay - this.small_y + this.border)
+			this.ctx.lineTo(bx - this.small_x + this.border, by - this.small_y + this.border)
+			this.ctx.stroke()
+		}
 	}
 
 	DrawAtom(atom) {
