@@ -14,46 +14,6 @@ class winMolecula extends App {
 		this.Draw()
 	}
 
-	/**
-	 * @param {('geo'|'normal'|'lewis')} value 
-	 */
-	set type(value) {
-		this._type = value
-		this.Update()
-	}
-
-	Update() {
-		switch(this._type) {
-			case 'normal':
-				this.structure = new NormalStructure(this.canvas, this.data.estrutura)
-				break
-		}
-
-		this.structure.Draw()
-	}
-
-	Render() {
-		this.canvas = document.createElement('canvas')
-		this.canvas.className = 'in-screen'
-		this.AddToContainer(this.canvas)
-	
-		this.Update()
-	}
-}
-
-class Structure {
-	/**
-	 * @param {HTMLCanvasElement} canvas 
-	 */
-	constructor(canvas) {
-		this.canvas = canvas
-		this.ctx = canvas.getContext('2d')
-		this.ctx.imageSmoothingEnabled = false
-		this.border = 20
-		this.atoms = []
-		this.ligations = []
-	}
-
 	Draw() {
 		const border = 20
 
@@ -145,8 +105,4 @@ class Structure {
 	}
 }
 
-<<<<<<< HEAD
 export default winMolecula
-=======
-export default WinMolecula
->>>>>>> a30eaa3967b3de7c757bf12de283c7c4ec649e43
