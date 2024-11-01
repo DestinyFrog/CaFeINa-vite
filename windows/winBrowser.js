@@ -1,9 +1,8 @@
+import './winBrowser.css'
 import App from "../features/app.js"
 import Atom from "../models/atom.js"
 import WinElement from "./winElement.js"
 import WinMolecula from "./winMolecula.js"
-
-import './winBrowser.css'
 import Molecula from "../models/molecula.js"
 
 class winBrowser extends App {
@@ -56,7 +55,7 @@ class winBrowser extends App {
 					.replaceAll("_", "<sub>")
 
 				const nome_p = document.createElement('p')
-				nome_p.textContent = m.nome
+				nome_p.textContent = m.nomes.popular[0]
 				li.appendChild(nome_p)
 
 				const formula_p = document.createElement('p')

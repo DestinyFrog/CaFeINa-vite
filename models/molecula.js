@@ -10,30 +10,11 @@ class Molecula {
 		this.id = id,
 		this.nomes = JSON.parse(nome)
 		this.formula = formula
-		this._estrutura = JSON.parse(estrutura)
+		this.estrutura = estrutura
 	}
 
 	get nome() {
 		return this.nomes[0]
-	}
-
-	get estrutura() {
-		return this._estrutura.map(({simbolo,geometria,carga,angulo,ligacoes, inverso}) => {
-		return {
-				simbolo,
-				geometria: geometria || 'linear',
-				carga: carga || 0,
-				inverso: inverso || false,
-				angle: angulo || undefined,
-				ligacoes: ligacoes?.map(({para, tipo, eletrons}) => {
-					return {
-						para,
-						tipo: tipo || 'covalente',
-						eletrons: eletrons || 1
-					}
-				}) || []
-			}
-		})
 	}
 
 	static removeCopy(arr) {
