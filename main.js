@@ -22,7 +22,7 @@ import winMolecula from './windows/winMolecula.js'
 
 	document.getElementById('app').appendChild(grid_app)
 
-	const str_params = window.location.href.split("?")[1]
+	const str_params = window.location.href.split("?")[1] || ""
 	const params = {}
 	str_params.split("&").forEach(s => {
 		const [k,v] = s.split("=")
