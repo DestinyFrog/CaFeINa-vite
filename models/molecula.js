@@ -11,7 +11,6 @@ class Molecula {
 		this.nomes = typeof nome === "string" ? JSON.parse(nome) : nome
 		this.formula = formula
 		this.estrutura = estrutura
-		console.log(estrutura)
 	}
 
 	get nome() {
