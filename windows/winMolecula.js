@@ -20,8 +20,7 @@ class winMolecula extends App {
 		const linhas = []
 		const letras = []
 
-		const ctx = this.canvas.getContext('2d')
-
+		const precode = `
 		function l2(ax, ay, bx, by, d=10, e=a(10)) {
 			const ang = Math.atan2(by-ay, bx-ax)+e
 			const ang2 = Math.atan2(by-ay, bx-ax)-e
@@ -67,9 +66,10 @@ class winMolecula extends App {
 		function a(angle) { return angle / 180 * Math.PI }
 
 		let dist = 34
+		` 
 
-		eval(this.data.estrutura)
-
+		eval(precode+";"+this.data.estrutura)
+		
 		let smallerx=1000, smallery=1000, biggerx=-1000, biggery=-1000
 		letras.forEach(({x, y}) => {
 			if (x<smallerx) smallerx = x
@@ -86,6 +86,8 @@ class winMolecula extends App {
 		
 		this.canvas.width  = width + border*2
 		this.canvas.height = height + border*2
+
+		const ctx = this.canvas.getContext('2d')
 
 		letras.forEach(({s, x, y}) => {
 			ctx.strokeStyle = "black"
