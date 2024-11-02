@@ -22,27 +22,29 @@ class winMolecula extends App {
 
 		const ctx = this.canvas.getContext('2d')
 
-		function l2(ax, ay, bx, by, d=10, e=a(12)) {
-			const ang = Math.atan2(by-ay, bx-ax)
+		function l2(ax, ay, bx, by, d=10, e=a(10)) {
+			const ang = Math.atan2(by-ay, bx-ax)+e
+			const ang2 = Math.atan2(by-ay, bx-ax)-e
+
 			linhas.push( {
 				a: {
-					x: ax+Math.cos(ang+e)*d,
-					y: ay+Math.sin(ang-e)*d
+					x: ax+Math.cos(ang)*d,
+					y: ay+Math.sin(ang)*d
 				},
 				b: {
-					x: bx+Math.cos(ang+Math.PI-e)*d,
-					y: by+Math.sin(ang+Math.PI+e)*d
+					x: bx+Math.cos(ang2+Math.PI)*d,
+					y: by+Math.sin(ang2+Math.PI)*d
 				}
 			} )
 
 			linhas.push( {
 				a: {
-					x: ax+Math.cos(ang-e)*d,
-					y: ay+Math.sin(ang+e)*d
+					x: ax+Math.cos(ang2)*d,
+					y: ay+Math.sin(ang2)*d
 				},
 				b: {
-					x: bx+Math.cos(ang+Math.PI+e)*d,
-					y: by+Math.sin(ang+Math.PI-e)*d
+					x: bx+Math.cos(ang+Math.PI)*d,
+					y: by+Math.sin(ang+Math.PI)*d
 				}
 			} )
 		}
@@ -64,11 +66,11 @@ class winMolecula extends App {
 		function p(symbol, x, y) { letras.push( {s: symbol, x, y} ) }
 		function a(angle) { return angle / 180 * Math.PI }
 
-		let dist = 40
+		let dist = 34
 
 		eval(this.data.estrutura)
 
-		let smallerx=0, smallery=0, biggerx=0, biggery=0
+		let smallerx=1000, smallery=1000, biggerx=-1000, biggery=-1000
 		letras.forEach(({x, y}) => {
 			if (x<smallerx) smallerx = x
 			if (y<smallery) smallery = y
@@ -76,11 +78,11 @@ class winMolecula extends App {
 			if (y>biggery) biggery = y
 		})
 
-		const width = biggerx - smallerx
-		const height = biggery - smallery
+		const width = biggerx + Math.abs(smallerx)
+		const height = biggery + Math.abs(smallery)
 
-		const cx = width/2 + border
-		const cy = height/2 + border
+		const cx = border + Math.abs(smallerx)
+		const cy = border + Math.abs(smallery)
 		
 		this.canvas.width  = width + border*2
 		this.canvas.height = height + border*2
