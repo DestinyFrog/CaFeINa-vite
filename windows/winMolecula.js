@@ -21,6 +21,44 @@ class winMolecula extends App {
 		const letras = []
 
 		const precode = `
+		function l3(ax, ay, bx, by, d=10, e=a(18)) {
+			const ang = Math.atan2(by-ay, bx-ax)+e
+			const ang2 = Math.atan2(by-ay, bx-ax)-e
+
+			linhas.push( {
+				a: {
+					x: ax+Math.cos(ang)*d,
+					y: ay+Math.sin(ang)*d
+				},
+				b: {
+					x: bx+Math.cos(ang2+Math.PI)*d,
+					y: by+Math.sin(ang2+Math.PI)*d
+				}
+			} )
+
+			linhas.push( {
+				a: {
+					x: ax+Math.cos(ang2)*d,
+					y: ay+Math.sin(ang2)*d
+				},
+				b: {
+					x: bx+Math.cos(ang+Math.PI)*d,
+					y: by+Math.sin(ang+Math.PI)*d
+				}
+			} )
+
+						linhas.push( {
+				a: {
+					x: ax+Math.cos(0)*d,
+					y: ay+Math.sin(0)*d
+				},
+				b: {
+					x: bx+Math.cos(Math.PI)*d,
+					y: by+Math.sin(Math.PI)*d
+				}
+			} )
+		}
+
 		function l2(ax, ay, bx, by, d=10, e=a(10)) {
 			const ang = Math.atan2(by-ay, bx-ax)+e
 			const ang2 = Math.atan2(by-ay, bx-ax)-e
