@@ -54,7 +54,11 @@ class Molecula {
 
 	static async SearchByMembers(members) {
 		const condition = members.map(d => `formula LIKE '%${d}%'`).join(" AND ")
-		const sql = `SELECT id, nome, formula, estrutura, caracteristicas FROM molecula WHERE ${condition} LIMIT 1;`
+		const sql = `SELECT id, nome, formula, estrutura, caracteristicas,  length(formula) 
+					FROM molecula
+					WHERE ${condition}
+					ORDER BY length(formula) ASC
+					LIMIT 1;`
 		const data = await client.execute(sql)
 		const m = new Molecula(data.rows[0]) || null
 		return m
