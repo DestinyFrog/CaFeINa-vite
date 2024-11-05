@@ -1,6 +1,7 @@
 import winBrowser from "../windows/winBrowser.js"
 import WinLinusPauling from "../windows/winLinusPauling.js"
 import WinPeriodicTable from "../windows/winPeriodicTable.js"
+import WinAdicionar from "../windows/winAdicionar.js"
 import App from "./app.js"
 
 import iconTabelaPeriodica from "/icons/iconPeriodicTable.svg"
@@ -43,6 +44,15 @@ const icons = [
 		title: "Limpar",
 		action: () =>
 			App.Clear()
+	},
+	{
+		name: "Criar",
+		icon: null,
+		title: "Criatividade",
+		action: () => {
+			const w = new WinAdicionar()
+			w.Render()
+		}
 	}
 ]
 
