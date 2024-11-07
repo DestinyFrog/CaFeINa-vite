@@ -42,6 +42,16 @@ class winAdicionar extends App {
         this.input_formula.type = "text"
         this.nav.appendChild(this.input_formula)
 
+		// ----
+
+		const h1_procura = document.createElement("h3")
+		h1_procura.textContent = "procura"
+		this.nav.appendChild(h1_procura)
+
+		this.input_procura = document.createElement("input")
+		this.input_procura.type = "text"
+		this.nav.appendChild(this.input_procura)
+
         // ----
         
         const h1_caracteristicas = document.createElement("h3")
@@ -49,7 +59,7 @@ class winAdicionar extends App {
         this.nav.appendChild(h1_caracteristicas)
         
         this.input_caracteristicas = document.createElement("textarea")
-        this.input_caracteristicas.cols = 30
+        this.input_caracteristicas.cols = 15
         this.input_caracteristicas.rows = 4
         this.nav.appendChild(this.input_caracteristicas)
 
@@ -58,6 +68,9 @@ class winAdicionar extends App {
         this.div = document.createElement("div")
         this.AddToContainer(this.div)
     
+        this.canvas = document.createElement("canvas")
+        this.div.appendChild(this.canvas)
+
         this.textarea = document.createElement("textarea")
         this.textarea.value = this.code
         this.textarea.cols = 40
@@ -67,9 +80,6 @@ class winAdicionar extends App {
             this.code = this.textarea.value
             this.Update()
         })
-
-        this.canvas = document.createElement("canvas")
-        this.div.appendChild(this.canvas)
 
         this.button = document.createElement("button")
         this.button.addEventListener('click', () => {
@@ -96,13 +106,14 @@ class winAdicionar extends App {
             },
             formula: this.input_formula.value,
             caracteristicas: this.input_caracteristicas.value.split(";"),
-            estrutura: this.code.replaceAll(";\n",";")
+            estrutura: this.code.replaceAll(";\n",";"),
+			procura: this.input_procura
         }
 
         console.log(obj)
         const sql = `
-        INSERT INTO molecula (nome, formula, caracteristicas, estrutura)
-        VALUES ('${JSON.stringify(obj.nome)}', '${obj.formula}', '${JSON.stringify(obj.caracteristicas)}', '${obj.estrutura}');
+        INSERT INTO molecula (nome, formula, caracteristicas, estrutura, procura)
+        VALUES ('${JSON.stringify(obj.nome)}', '${obj.formula}', '${JSON.stringify(obj.caracteristicas)}', '${obj.estrutura}', '${obj.procura}');
         `
 
         await client.execute(sql)
