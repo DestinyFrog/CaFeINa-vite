@@ -107,7 +107,7 @@ class winAdicionar extends App {
             formula: this.input_formula.value,
             caracteristicas: this.input_caracteristicas.value.split(";"),
             estrutura: this.code.replaceAll(";\n",";"),
-			procura: this.input_procura
+			procura: this.input_procura.value
         }
 
         console.log(obj)
@@ -261,6 +261,7 @@ class winAdicionar extends App {
         this.input_caracteristicas.value = ""
         this.code = ""
         this.textarea.value = ""
+		this.input_procura.value = ""
         this.Update()
     }
 }
