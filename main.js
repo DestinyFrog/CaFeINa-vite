@@ -3,6 +3,7 @@ import icons from './features/icons.js'
 import Atom from './models/atom.js'
 import Molecula from './models/molecula.js'
 import winMolecula from './windows/winMolecula.js'
+import WinAdicionar from './windows/winAdicionar.js'
 
 ( async () => {
 	await Atom.loadAll()
@@ -36,6 +37,11 @@ import winMolecula from './windows/winMolecula.js'
 			const w = new winMolecula(data[0])
 			w.Render()
 		})
+	}
+
+	if (params.criar == 'true') {
+		const w = new WinAdicionar()
+		w.Render()
 	}
 }).call(this)
 
