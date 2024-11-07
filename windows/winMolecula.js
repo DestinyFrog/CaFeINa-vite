@@ -5,6 +5,7 @@ class winMolecula extends App {
 	constructor(data) {
 		super(Capitalize(data.nomes.popular[0]), "Molecula")
 		this.data = data
+		this.div_container.style.minWidth = "200px"
 	}
 
 	Render(){
@@ -12,6 +13,18 @@ class winMolecula extends App {
 		this.canvas.className = 'in-screen'
 		this.AddToContainer(this.canvas)
 		this.Draw()
+
+		/*
+		const p_nome_oficial = document.createElement("p")
+		p_nome_oficial.textContent = this.data.nomes.oficial[0]
+		this.AddToContainer(p_nome_oficial)
+		*/
+	
+		const p_formula = document.createElement("p")
+		p_formula.innerHTML = this.data.formula.replaceAll("<", "_")
+		.replaceAll(">", "</sub>")
+		.replaceAll("_", "<sub>")
+		this.AddToContainer(p_formula)
 	}
 
 	Draw() {
