@@ -31,10 +31,14 @@ class winBrowser extends App {
 
 		const search_input = document.createElement('input')
 		search_input.type = 'text'
+		search_input.value = this.procura||""
 		search_input.addEventListener('input', () => {
 			this.SearchFor(search_input.value)
 		})
 		bar.appendChild(search_input)
+
+		if (this.procura)
+			this.SearchFor(this.procura)
 	}
 
 	async SearchFor(term) {

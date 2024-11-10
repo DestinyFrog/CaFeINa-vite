@@ -5,12 +5,14 @@ class Molecula {
 		id,
 		nome,
 		formula,
-		estrutura
+		estrutura,
+		caracteristicas
 	}) {
 		this.id = id,
 		this.nomes = typeof nome === "string" ? JSON.parse(nome) : nome
 		this.formula = formula
 		this.estrutura = estrutura
+		this.caracteristicas = typeof caracteristicas === "string" ? JSON.parse(caracteristicas) : caracteristicas
 	}
 
 	get nome() {

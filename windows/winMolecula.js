@@ -1,5 +1,7 @@
+import "./winMolecula.css"
 import { Capitalize } from "../configuration"
 import App from "../features/app"
+import winBrowser from "./winBrowser"
 
 class winMolecula extends App {
 	constructor(data) {
@@ -14,17 +16,25 @@ class winMolecula extends App {
 		this.AddToContainer(this.canvas)
 		this.Draw()
 
-		/*
-		const p_nome_oficial = document.createElement("p")
-		p_nome_oficial.textContent = this.data.nomes.oficial[0]
-		this.AddToContainer(p_nome_oficial)
-		*/
-	
 		const p_formula = document.createElement("p")
 		p_formula.innerHTML = this.data.formula.replaceAll("<", "_")
 		.replaceAll(">", "</sub>")
 		.replaceAll("_", "<sub>")
 		this.AddToContainer(p_formula)
+
+		const ul_tags = document.createElement("ul")
+		ul_tags.className = "tags-list"
+		this.AddToContainer(ul_tags)
+
+		this.data.caracteristicas.forEach(caracteristica => {
+			const li_tag = document.createElement("li")
+			li_tag.textContent = caracteristica
+			li_tag.addEventListener('click', () => {
+				const w = new winBrowser(caracteristica)
+				w.Render()
+			})
+			ul_tags.appendChild(li_tag)
+		})
 	}
 
 	Draw() {

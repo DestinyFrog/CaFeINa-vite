@@ -1,0 +1,22 @@
+
+.tags-list {
+	list-style-type: none;
+	list-style: none;
+	display: flex;
+	width: 100%;
+	flex-wrap: wrap;
+	justify-content: center;
+	align-items: center;
+}
+
+.tags-list li {
+	margin: 5px;
+	padding: 2px 5px;
+	background-color: brown;
+	border-radius: 10px;
+	color: white;
+}
+
+.tags-list li:hover {
+	background-color: red;
+}
