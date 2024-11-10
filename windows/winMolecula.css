@@ -15,6 +15,7 @@
 	background-color: brown;
 	border-radius: 10px;
 	color: white;
+  text-size:18px;
 }
 
 .tags-list li:hover {
