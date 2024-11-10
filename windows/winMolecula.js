@@ -140,6 +140,11 @@ class winMolecula extends App {
 
 		const ctx = this.canvas.getContext('2d')
 
+		ctx.fillStyle = 'white'
+		ctx.clearRect(0,0,width + border*2,height + border*2);
+		ctx.fillRect(0,0,width + border*2,height + border*2);
+		ctx.fillStyle = 'black'
+
 		letras.forEach(({s, x, y}) => {
 			ctx.strokeStyle = "black"
 			ctx.lineWidth = 1
@@ -150,7 +155,7 @@ class winMolecula extends App {
 		})
 
 		linhas.forEach(({a, b}) => {
-			ctx.strokeStyle = "black"
+			ctx.fillStyle = "black"
 			ctx.lineWidth = 1
 			ctx.beginPath()
 			ctx.moveTo( a.x+cx, a.y+cy )
