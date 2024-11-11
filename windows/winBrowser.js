@@ -48,7 +48,15 @@ class winBrowser extends App {
 		this.atom_area.innerHTML = ''
 		this.SearchAtoms(term)
 
-		const data2 = await Molecula.SearchManyByTerm(term)
+		let data2
+
+		if (term == "orgânico")
+			data2 = await Molecula.SearchOrganic()
+		else if (term == "inorgânico")
+			data2 = await Molecula.SearchInorganic()
+		else
+			data2 = await Molecula.SearchManyByTerm(term)
+
 		this.molecule_area.innerHTML = ''
 		data2.forEach(
 			m => {
