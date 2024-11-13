@@ -1,8 +1,10 @@
 import './style.css'
 import icons from './features/icons.js'
 import Atom from './models/atom.js'
+import Article from './models/article.js'
 import Molecula from './models/molecula.js'
 import winMolecula from './windows/winMolecula.js'
+import winArticle from './windows/winArticle.js'
 import WinAdicionar from './windows/winAdicionar.js'
 
 ( async () => {
@@ -43,5 +45,20 @@ import WinAdicionar from './windows/winAdicionar.js'
 		const w = new WinAdicionar()
 		w.Render()
 	}
+
+	const a = new Article("Pimentas",
+`
+## >>molecula:capsaicina<<|Capsaicina|
+#### Pimenta Vermelha
+---
+
+
+## Piperina
+#### Pimenta-do-reino
+---
+`
+)
+	const w = new winArticle(a)
+	w.Render()
 }).call(this)
 

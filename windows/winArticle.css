@@ -1,0 +1,12 @@
+
+.article {
+    margin: 2px;
+    padding:6px;
+    background-color: aliceblue;
+    min-width: 260px;
+    width:100%;
+}
+
+.article p {
+    font-size: 14px;
+}
