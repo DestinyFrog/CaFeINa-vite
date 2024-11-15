@@ -183,7 +183,7 @@ class App {
 
 		l.push(this)
 
-		if (l.length > 0) {
+		if (l.length > 1) {
 			const mem = l.reduce((c, d) => {
 				if (d._type == "molecula") {
 					return [...c, ... d.data.procura.match(/([A-Z][a-z]?)/g)]
