@@ -1,4 +1,5 @@
 import { GenerateRandomString } from '../configuration'
+import Molecula from '../models/molecula'
 import './app.css'
 
 
@@ -80,6 +81,12 @@ class App {
 		this.div_window.className = "app"
 		this.div_window.style.top  = `${10}px`
 		this.div_window.style.left = `${10}px`
+
+		if (this._type == "element" || this._type == "molecula") {
+			this.div_window.addEventListener('mouseup', () => this.OnDrop())
+			// this.div_window.addEventListener('touchend', () => this.OnDrop())		
+		}
+
 		app.appendChild(this.div_window)
 
 		this.div_header = document.createElement('div')
@@ -154,6 +161,48 @@ class App {
 	AddToHeader(el) {
 		this.div_header.appendChild(el)
 	}
+	
+	OnDrop() {
+		const my_position = this.position
+		const my_size = this.size
+
+		const all = [ ... App.allByType("element"), ... App.allByType("molecula") ]
+
+		const l = all.map(obj => {
+			if (obj._indice == this._indice) return
+
+			if (
+				my_position.x + my_size.width > obj.position.x &&
+				my_position.x < obj.position.x + obj.size.width &&
+				my_position.y + my_size.height > obj.position.y &&
+				my_position.y < obj.position.y + obj.size.height
+			) {
+				return obj
+			}
+		}).filter(d => d!=undefined)
+
+		l.push(this)
+
+		if (l.length > 0) {
+			const mem = l.reduce((c, d) => {
+				if (d._type == "molecula") {
+					return [...c, ... d.data.procura.match(/([A-Z][a-z]?)/g)]
+				}
+				else if (d._type == "element") {
+					return [...c, d.atom.simbolo]
+				}
+			}, [])			
+			
+			Molecula.SearchByMembers(mem)
+			.then(([data]) => {
+				this.CallMe(data)
+				l.forEach(d => d.Close())
+				this.Close()
+			})	
+		}
+	}
+
+	CallMe(data) {}
 }
 
 export default App

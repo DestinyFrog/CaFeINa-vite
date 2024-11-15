@@ -2,10 +2,11 @@ import "./winMolecula.css"
 import { Capitalize } from "../configuration"
 import App from "../features/app"
 import winBrowser from "./winBrowser"
+import Atom from "../models/atom"
 
 class winMolecula extends App {
 	constructor(data) {
-		super(Capitalize(data.nomes.popular[0]), "Molecula")
+		super(Capitalize(data.nomes.popular[0]), "molecula")
 		this.data = data
 		this.div_container.style.minWidth = "200px"
 	}
@@ -38,7 +39,7 @@ class winMolecula extends App {
 	}
 
 	Draw() {
-		const border = 20
+		const border = 30
 
 		const linhas = []
 		const letras = []
@@ -109,7 +110,7 @@ class winMolecula extends App {
 			} )
 		}
 
-		function l1(ax, ay, bx, by, d1=10, d2=10) {
+		function l1(ax, ay, bx, by, d1=0, d2=0) {
 			const ang = Math.atan2(by-ay, bx-ax)
 			linhas.push( {
 				a: {
@@ -126,7 +127,7 @@ class winMolecula extends App {
 		function p(symbol, x, y) { letras.push( {s: symbol, x, y} ) }
 		function a(angle) { return angle / 180 * Math.PI }
 
-		let dist = 34
+		let dist = 40
 		` 
 
 		eval(precode+";"+this.data.estrutura)
@@ -144,9 +145,11 @@ class winMolecula extends App {
 
 		const cx = border + Math.abs(smallerx)
 		const cy = border + Math.abs(smallery)
+
+		let g = 1.22
 		
-		this.canvas.width  = width + border*2
-		this.canvas.height = height + border*2
+		this.canvas.width  = (width + border*2)*g
+		this.canvas.height = (height + border*2)*g
 
 		const ctx = this.canvas.getContext('2d')
 
@@ -155,23 +158,77 @@ class winMolecula extends App {
 		ctx.fillRect(0,0,width + border*2,height + border*2);
 		ctx.fillStyle = 'black'
 
+		ctx.fillStyle = "white"
+		ctx.fillRect(0,0,this.canvas.width,this.canvas.height)
+
+		
+		linhas.forEach(({a, b}) => {
+			ctx.fillStyle = "black"
+			ctx.lineWidth = 1
+			ctx.beginPath()
+			ctx.moveTo( (a.x+cx)*g, (a.y+cy)*g )
+			ctx.lineTo( (b.x+cx)*g, (b.y+cy)*g )
+			ctx.stroke()
+		})
+		
+
 		letras.forEach(({s, x, y}) => {
 			ctx.strokeStyle = "black"
 			ctx.lineWidth = 1
 			ctx.font = "13px Arial"
 			ctx.textAlign = "center"
 			ctx.textBaseline = "middle"
-			ctx.fillText(s, x + cx, y + cy)
-		})
 
-		linhas.forEach(({a, b}) => {
-			ctx.fillStyle = "black"
-			ctx.lineWidth = 1
+
+			switch(s.replace("⁺","").replace("⁻","")) {
+				case "N":
+					ctx.fillStyle = "blue";
+					break
+				case "O":
+					ctx.fillStyle = "red";
+					break
+				case "C":
+					ctx.fillStyle = "black";
+					break
+				case "S":
+					ctx.fillStyle = "#cdaa6e";
+					break
+				case "P":
+					ctx.fillStyle = "#354A21";
+					break
+				case "Cl":
+					ctx.fillStyle = "#5e4d85";
+					break
+				case "H":
+					ctx.fillStyle = "orange";
+					break
+				default:
+					ctx.fillStyle = "gray";
+					break
+			}
+
+			let rad = Atom.SearchByTerm(s.replace("⁺","").replace("⁻","")).raio_atomico * 0.25 || 20
+			if (rad > 26)
+				rad=26
+
 			ctx.beginPath()
-			ctx.moveTo( a.x+cx, a.y+cy )
-			ctx.lineTo( b.x+cx, b.y+cy )
+			ctx.arc((x+cx)*g,(y+cy)*g,rad,0,Math.PI*2)
+			ctx.fill()
+			ctx.strokeStyle = "black"
+			ctx.arc((x+cx)*g,(y+cy)*g,rad,0,Math.PI*2)
 			ctx.stroke()
+
+			ctx.fillStyle = "white"
+			ctx.fillText(s, (x+cx)*g, (y+cy)*g)
 		})
+			
+		
+	}
+
+	CallMe(data) {
+		const w = new winMolecula(data)
+		w.position = this.position
+		w.Render()
 	}
 }
 

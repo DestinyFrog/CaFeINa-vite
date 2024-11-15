@@ -1,24 +1,19 @@
 import { Capitalize } from "../configuration.js"
 import App from "../features/app.js"
 import Atom from "../models/atom.js"
-import Molecula from "../models/molecula.js"
 import WinAtom from "./winAtom.js"
 import WinLinusPauling from "./winLinusPauling.js"
-import WinMolecula from "./winMolecula.js"
 import "./winElement.css"
+import winMolecula from "./winMolecula.js"
 
 class WinElement extends App {
-	static colls = []
 
 	/**
 	 * @param {Atom} atom
 	 */
 	constructor(atom) {
-		super( Capitalize(atom.nome) )
+		super( Capitalize(atom.nome), "element" )
 		this.atom = atom
-		this.i = WinElement.colls.push(this._indice)-1
-		this.div_window.addEventListener('mouseup', () => this.OnDrop())
-		this.div_window.addEventListener('touchend', () => this.OnDrop())
 	}
 
 	Render() {
@@ -51,10 +46,6 @@ class WinElement extends App {
 		super.AddToContainer(div_element)
 	}
 
-	Destroy() {
-		delete WinElement.colls[this.i]
-	}
-
 	OpenWinLinusPauling() {
 		const w = new WinLinusPauling(this.atom)
 		w.Render()
@@ -66,39 +57,10 @@ class WinElement extends App {
 		w.Render()
 	}
 
-	OnDrop() {
-		const my_position = this.position
-		const my_size = this.size
-
-		const l = WinElement.colls.map(idx => {
-			if (idx == this._indice) return
-			const obj = App.open_apps[idx]
-
-			if (
-				my_position.x + my_size.width > obj.position.x &&
-				my_position.x < obj.position.x + obj.size.width &&
-				my_position.y + my_size.height > obj.position.y &&
-				my_position.y < obj.position.y + obj.size.height
-			) {
-				return obj
-			}
-		}).filter(d => d!=undefined)
-
-		if (l.length > 0) {
-			const members = l.map(d => d.atom.simbolo)
-			members.push(this.atom.simbolo)
-			Molecula.SearchByMembers(members)
-			.then(data => {
-				if (data != undefined) {
-					const w = new WinMolecula(data)
-					w.position = this.position
-					w.Render()
-	
-					l.forEach(d => d.Close())
-					this.Close()
-				}
-			})
-		}
+	CallMe(data) {
+		const w = new winMolecula(data)
+		w.position = this.position
+		w.Render()
 	}
 }
 

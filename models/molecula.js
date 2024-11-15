@@ -7,7 +7,8 @@ class Molecula {
 		formula,
 		estrutura,
 		caracteristicas,
-		organico
+		organico,
+		procura
 	}) {
 		this.id = id,
 		this.nomes = typeof nome === "string" ? JSON.parse(nome) : nome
@@ -15,6 +16,8 @@ class Molecula {
 		this.estrutura = estrutura
 		this.caracteristicas = typeof caracteristicas === "string" ? JSON.parse(caracteristicas) : caracteristicas
 		this.organico = organico
+		this.procura = procura
+
 
 		if (this.organico)
 			this.caracteristicas.push("orgânico")
@@ -37,7 +40,7 @@ class Molecula {
 	}
 
 	static async SearchOneByTerm(term) {
-		const data = await client.execute({sql:`SELECT m.id, m.nome, m.formula, m.estrutura, m.organico
+		const data = await client.execute({sql:`SELECT m.id, m.nome, m.formula, m.estrutura, m.organico, m.procura
 			FROM molecula AS m, json_each(m.nome)
 			WHERE json_each.value LIKE ?
 			LIMIT 0;`,
@@ -49,7 +52,7 @@ class Molecula {
 	}
 
 	static async SearchManyByTerm(term) {
-		const data = await client.execute({sql:`SELECT m.id, m.nome, m.formula, m.estrutura, m.caracteristicas, m.organico
+		const data = await client.execute({sql:`SELECT m.id, m.nome, m.formula, m.estrutura, m.caracteristicas, m.organico, m.procura
 			FROM molecula AS m, json_each(m.nome)
 			WHERE json_each.value LIKE ?
 			OR m.caracteristicas LIKE ?
@@ -62,7 +65,7 @@ class Molecula {
 	}
 
 	static async SearchOrganic() {
-		const data = await client.execute(`SELECT m.id, m.nome, m.formula, m.estrutura, m.caracteristicas, m.organico
+		const data = await client.execute(`SELECT m.id, m.nome, m.formula, m.estrutura, m.caracteristicas, m.organico, m.procura
 			FROM molecula AS m
 			WHERE m.organico = 1
 			;`)
@@ -72,7 +75,7 @@ class Molecula {
 	}
 
 	static async SearchInorganic() {
-		const data = await client.execute(`SELECT m.id, m.nome, m.formula, m.estrutura, m.caracteristicas, m.organico
+		const data = await client.execute(`SELECT m.id, m.nome, m.formula, m.estrutura, m.caracteristicas, m.organico, m.procura
 			FROM molecula AS m
 			WHERE m.organico = 0
 			;`)
@@ -85,14 +88,13 @@ class Molecula {
 		// const condition = members.map(d => `formula LIKE '%${d}%'`).join(" AND ")
 		const procura = members.sort().join("") 
 		console.log(procura)
-		const sql = `SELECT id, nome, formula, estrutura, caracteristicas,  length(formula), organico
+		const sql = `SELECT id, nome, formula, estrutura, caracteristicas,  length(formula), organico, procura
 					FROM molecula
-					WHERE procura LIKE '%${procura}%'
+					WHERE procura LIKE '${procura}'
 					ORDER BY length(formula) ASC
 					LIMIT 1;`
 		const data = await client.execute(sql)
-		const m = new Molecula(data.rows[0]) || null
-		return m
+		return data.rows.map(d => new Molecula(d))
 	}
 }
 
