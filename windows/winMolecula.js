@@ -202,6 +202,9 @@ class winMolecula extends App {
 				case "H":
 					ctx.fillStyle = "orange";
 					break
+				case "F":
+					ctx.fillStyle = "#6b3fa0";
+					break
 				default:
 					ctx.fillStyle = "gray";
 					break
