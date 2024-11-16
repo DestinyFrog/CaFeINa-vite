@@ -84,7 +84,7 @@ class App {
 
 		if (this._type == "element" || this._type == "molecula") {
 			this.div_window.addEventListener('mouseup', () => this.OnDrop())
-			// this.div_window.addEventListener('touchend', () => this.OnDrop())		
+			this.div_window.addEventListener('touchend', () => this.OnDrop())		
 		}
 
 		app.appendChild(this.div_window)
