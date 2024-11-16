@@ -4,6 +4,7 @@ import Atom from "../models/atom.js"
 import WinElement from "./winElement.js"
 import WinMolecula from "./winMolecula.js"
 import Molecula from "../models/molecula.js"
+import Dicionario from '../models/dicionario.js'
 
 class winBrowser extends App {
 	constructor(procura) {
@@ -16,9 +17,21 @@ class winBrowser extends App {
 		bar.className = 'browser-bar'
 		this.AddToContainer(bar)
 
+		const search_input = document.createElement('input')
+		search_input.type = 'text'
+		search_input.value = this.procura||""
+		search_input.addEventListener('input', () => {
+			this.SearchFor(search_input.value)
+		})
+		bar.appendChild(search_input)
+
+		this.def = document.createElement('div')
+		this.def.className = 'browser-content'
+		bar.appendChild(this.def)
+
 		this.recomendation = document.createElement('ul')
 		this.recomendation.className = 'browser-ul-recomendation'
-		this.AddToContainer(this.recomendation)
+		bar.appendChild(this.recomendation)
 
 		this.atom_area = document.createElement('div')
 		this.recomendation.appendChild(this.atom_area)
@@ -28,14 +41,6 @@ class winBrowser extends App {
 
 		this.molecule_area = document.createElement('div')
 		this.recomendation.appendChild(this.molecule_area)
-
-		const search_input = document.createElement('input')
-		search_input.type = 'text'
-		search_input.value = this.procura||""
-		search_input.addEventListener('input', () => {
-			this.SearchFor(search_input.value)
-		})
-		bar.appendChild(search_input)
 
 		if (this.procura)
 			this.SearchFor(this.procura)
@@ -47,6 +52,17 @@ class winBrowser extends App {
 
 		this.atom_area.innerHTML = ''
 		this.SearchAtoms(term)
+
+		Dicionario.searchFor(term)
+		.then(([data]) => {
+			if (data) 
+				this.def.textContent = data.descricao		
+			else
+				this.def.textContent = ''
+		})
+		.catch(err => {
+			console.error(err)
+		})
 
 		let data2
 
