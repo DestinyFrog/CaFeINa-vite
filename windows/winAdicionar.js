@@ -132,6 +132,7 @@ class winAdicionar extends App {
 		function l3(ax, ay, bx, by, d=10, e=a(18)) {
 			const ang = Math.atan2(by-ay, bx-ax)+e
 			const ang2 = Math.atan2(by-ay, bx-ax)-e
+			const ang3 = Math.atan2(by-ay, bx-ax)
 
 			linhas.push( {
 				a: {
@@ -157,12 +158,12 @@ class winAdicionar extends App {
 
 						linhas.push( {
 				a: {
-					x: ax+Math.cos(0)*d,
-					y: ay+Math.sin(0)*d
+					x: ax+Math.cos(ang3)*d,
+					y: ay+Math.sin(ang3)*d
 				},
 				b: {
-					x: bx+Math.cos(Math.PI)*d,
-					y: by+Math.sin(Math.PI)*d
+					x: bx+Math.cos(ang3+Math.PI)*d,
+					y: by+Math.sin(ang3+Math.PI)*d
 				}
 			} )
 		}
