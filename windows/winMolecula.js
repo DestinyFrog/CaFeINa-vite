@@ -212,7 +212,7 @@ class winMolecula extends App {
 			}
 
 			let rad = Atom.SearchByTerm(s.replace("⁺","").replace("⁻","")).raio_atomico * 0.25 || 20
-			if (rad > 26)
+			if (rad > 34)
 				rad=26
 
 			ctx.beginPath()
