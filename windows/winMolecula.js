@@ -180,39 +180,22 @@ class winMolecula extends App {
 			ctx.textAlign = "center"
 			ctx.textBaseline = "middle"
 
+    const specificColors = {
+N: "blue",
+O: "red",
+C: "black",
+S: "#cdaa6e",
+P: "#354a21",
+Cl: "#5e4d85",
+H: "orange",
+F: "#6b3fa0"
+    }
 
-			switch(s.replace("⁺","").replace("⁻","")) {
-				case "N":
-					ctx.fillStyle = "blue";
-					break
-				case "O":
-					ctx.fillStyle = "red";
-					break
-				case "C":
-					ctx.fillStyle = "black";
-					break
-				case "S":
-					ctx.fillStyle = "#cdaa6e";
-					break
-				case "P":
-					ctx.fillStyle = "#354A21";
-					break
-				case "Cl":
-					ctx.fillStyle = "#5e4d85";
-					break
-				case "H":
-					ctx.fillStyle = "orange";
-					break
-				case "F":
-					ctx.fillStyle = "#6b3fa0";
-					break
-				default:
-					ctx.fillStyle = "gray";
-					break
-			}
+ctx.fillStyle = specificColors[s.replace("⁺","").replace("⁻","")] || "gray"
+
 
 			let rad = Atom.SearchByTerm(s.replace("⁺","").replace("⁻","")).raio_atomico * 0.25 || 20;
-if (rad > 40) rad = 40;
+if (rad > 34) rad = 34;
 		
 
 			ctx.beginPath()
