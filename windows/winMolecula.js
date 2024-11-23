@@ -39,7 +39,7 @@ class winMolecula extends App {
 	}
 
 	Draw() {
-		const border = 30
+		const border = 24
 
 		const linhas = []
 		const letras = []
@@ -195,7 +195,7 @@ ctx.fillStyle = specificColors[s.replace("⁺","").replace("⁻","")] || "gray"
 
 
 			let rad = Atom.SearchByTerm(s.replace("⁺","").replace("⁻","")).raio_atomico * 0.25 || 20;
-if (rad > 34) rad = 34;
+if (rad > 30) rad = 30;
 		
 
 			ctx.beginPath()
