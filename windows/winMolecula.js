@@ -39,7 +39,7 @@ class winMolecula extends App {
 	}
 
 	Draw() {
-		const border = 24
+		const border = 29
 
 		const linhas = []
 		const letras = []
