@@ -8,10 +8,11 @@ class winMolecula extends App {
 	constructor(data) {
 		super(Capitalize(data.nomes.popular[0]), "molecula")
 		this.data = data
+		console.log(this.data)
 		this.div_container.style.minWidth = "200px"
 	}
 
-	Render(){
+	Render() {
 		this.canvas = document.createElement('canvas')
 		this.canvas.className = 'in-screen'
 		this.AddToContainer(this.canvas)
@@ -19,8 +20,8 @@ class winMolecula extends App {
 
 		const p_formula = document.createElement("p")
 		p_formula.innerHTML = this.data.formula.replaceAll("<", "_")
-		.replaceAll(">", "</sub>")
-		.replaceAll("_", "<sub>")
+			.replaceAll(">", "</sub>")
+			.replaceAll("_", "<sub>")
 		this.AddToContainer(p_formula)
 
 		const ul_tags = document.createElement("ul")
@@ -129,16 +130,16 @@ class winMolecula extends App {
 		function a(angle) { return angle / 180 * Math.PI }
 
 		let dist = 40
-		` 
+		`
 
-		eval(precode+";"+this.data.estrutura)
-		
-		let smallerx=1000, smallery=1000, biggerx=-1000, biggery=-1000
-		letras.forEach(({x, y}) => {
-			if (x<smallerx) smallerx = x
-			if (y<smallery) smallery = y
-			if (x>biggerx) biggerx = x
-			if (y>biggery) biggery = y
+		eval(precode + ";" + this.data.estrutura)
+
+		let smallerx = 1000, smallery = 1000, biggerx = -1000, biggery = -1000
+		letras.forEach(({ x, y }) => {
+			if (x < smallerx) smallerx = x
+			if (y < smallery) smallery = y
+			if (x > biggerx) biggerx = x
+			if (y > biggery) biggery = y
 		})
 
 		const width = biggerx + Math.abs(smallerx)
@@ -148,68 +149,63 @@ class winMolecula extends App {
 		const cy = border + Math.abs(smallery)
 
 		let g = 1.22
-		
-		this.canvas.width  = (width + border*2)*g
-		this.canvas.height = (height + border*2)*g
+
+		this.canvas.width = (width + border * 2) * g
+		this.canvas.height = (height + border * 2) * g
 
 		const ctx = this.canvas.getContext('2d')
 
 		ctx.fillStyle = 'white'
-		ctx.clearRect(0,0,width + border*2,height + border*2);
-		ctx.fillRect(0,0,width + border*2,height + border*2);
+		ctx.clearRect(0, 0, width + border * 2, height + border * 2);
+		ctx.fillRect(0, 0, width + border * 2, height + border * 2);
 		ctx.fillStyle = 'black'
 
 		ctx.fillStyle = "white"
-		ctx.fillRect(0,0,this.canvas.width,this.canvas.height)
+		ctx.fillRect(0, 0, this.canvas.width, this.canvas.height)
 
-		
-		linhas.forEach(({a, b}) => {
+
+		linhas.forEach(({ a, b }) => {
 			ctx.fillStyle = "black"
 			ctx.lineWidth = 1
 			ctx.beginPath()
-			ctx.moveTo( (a.x+cx)*g, (a.y+cy)*g )
-			ctx.lineTo( (b.x+cx)*g, (b.y+cy)*g )
+			ctx.moveTo((a.x + cx) * g, (a.y + cy) * g)
+			ctx.lineTo((b.x + cx) * g, (b.y + cy) * g)
 			ctx.stroke()
 		})
-		
 
-		letras.forEach(({s, x, y}) => {
+
+		letras.forEach(({ s, x, y }) => {
 			ctx.strokeStyle = "black"
 			ctx.lineWidth = 1
 			ctx.font = "13px Arial"
 			ctx.textAlign = "center"
 			ctx.textBaseline = "middle"
 
-    const specificColors = {
-N: "blue",
-O: "red",
-C: "black",
-S: "#cdaa6e",
-P: "#354a21",
-Cl: "#5e4d85",
-H: "orange",
-F: "#6b3fa0"
-    }
+			const specificColors = {
+				N: "blue",
+				O: "red",
+				C: "black",
+				S: "#cdaa6e",
+				P: "#354a21",
+				Cl: "#5e4d85",
+				H: "orange",
+				F: "#6b3fa0"
+			}
 
-ctx.fillStyle = specificColors[s.replace("⁺","").replace("²⁻","").replace("⁻","")] || "gray"
-
-
-			let rad = Atom.SearchByTerm(s.replace("⁺","").replace("⁻","")).raio_atomico * 0.25 || 20;
-if (rad > 30) rad = 30;
-		
+			ctx.fillStyle = specificColors[s.match(/[A-Z][a-z]?/g, "")] || "gray"
+			let rad = Atom.SearchByTerm( s.match(/[A-Z][a-z]?/g, "") ).raio_atomico * 0.25 || 20;
+			if (rad > 26) rad = 26;
 
 			ctx.beginPath()
-			ctx.arc((x+cx)*g,(y+cy)*g,rad,0,Math.PI*2)
+			ctx.arc((x + cx) * g, (y + cy) * g, rad, 0, Math.PI * 2)
 			ctx.fill()
 			ctx.strokeStyle = "black"
-			ctx.arc((x+cx)*g,(y+cy)*g,rad,0,Math.PI*2)
+			ctx.arc((x + cx) * g, (y + cy) * g, rad, 0, Math.PI * 2)
 			ctx.stroke()
 
 			ctx.fillStyle = "white"
-			ctx.fillText(s, (x+cx)*g, (y+cy)*g)
+			ctx.fillText(s, (x + cx) * g, (y + cy) * g)
 		})
-			
-		
 	}
 
 	CallMe(data) {
