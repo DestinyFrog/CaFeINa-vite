@@ -191,7 +191,7 @@ H: "orange",
 F: "#6b3fa0"
     }
 
-ctx.fillStyle = specificColors[s.replace("⁺","").replace("⁻","").replace("²⁻","")] || "gray"
+ctx.fillStyle = specificColors[s.replace("⁺","").replace("²⁻","").replace("⁻","")] || "gray"
 
 
 			let rad = Atom.SearchByTerm(s.replace("⁺","").replace("⁻","")).raio_atomico * 0.25 || 20;
